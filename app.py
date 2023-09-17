@@ -2,12 +2,16 @@ from flask import Flask, render_template,jsonify,request
 import numpy as np
 from joblib import load
 import os
+from flask_cors import CORS
 
 #Cargar el modelo
 dt=load("dt1.joblib")
 
 #Generar el servidor (backend)
 servidorWeb = Flask(__name__)
+
+#Activar convenciones CORS para permitir la entrada de peticiones desde el frontend
+CORS(servidorWeb, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @servidorWeb.route("/holamundo", methods=['GET'])
 def holamundo():
